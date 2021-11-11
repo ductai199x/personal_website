@@ -1,0 +1,156 @@
+.about-me {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 3rem;
+
+}
+
+.cool-picture {
+    position: relative;
+    flex: 1 1 auto;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    min-width: 350px;
+    box-shadow: 10px 0px 5px darkslategrey;
+    border-radius: 15px;
+}
+
+.cool-picture img {
+    border-radius: 15px;
+}
+
+@media only screen and (min-width: 600px) {
+    .cool-picture {
+        height: 95vh;
+        width: 15vh;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .cool-picture {
+        height: 550px;
+    }
+}
+
+.overlay {
+    position: absolute;
+    display: block;
+    z-index: 2;
+    opacity: 0.4;
+    object-fit: cover;
+    min-width: 0;
+    flex: none;
+    border-radius: inherit;
+}
+
+.matrix-rain {
+    flex: 1 1 auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    z-index: 1;
+    min-width: 0;
+    border-radius: inherit;
+}
+
+div.intro {
+    position: absolute;
+    bottom: 0;
+    min-height: 200px;
+    min-width: 100%;
+    z-index: 3;
+    background-color: transparent;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+div.intro > .name {
+    font-weight: 900;
+    line-height: 1.37;
+}
+
+div.intro > .jobs {
+    font-weight: 400;
+    line-height: 1.0;
+}
+
+div.intro > .social > .social-list {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 15px 0 70px;
+    list-style: none;
+}
+
+div.intro > .social > .social-list > li {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.intro > .social > .social-list > li:not(:last-child) {
+    margin-right: 10px;
+}
+
+div.resume {
+    display: flex;
+    flex-direction: column;
+    margin-left: 3rem;
+    width: 57vw;
+    color: var(--text-primary);
+}
+
+div.short-desc {
+    flex: 0 1 auto;
+}
+
+div.short-desc > .desc {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+}
+
+div.short-desc > .desc-list {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1.3rem;
+}
+
+div.short-desc > .desc-list > .desc-item {
+    font-size: 18px;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.67;
+    color: green;
+}
+
+div.short-desc > .desc-list > .desc-item:not(:last-child) {
+    margin-right: 15px;
+}
+
+div.short-desc > .desc-list > .desc-item:not(:last-child)::after {
+    content: '/';
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    line-height: 1.67;
+    opacity: 0.25;
+    padding-left: 15px;
+}
+
+div.short-desc > .desc-para {
+    line-height: 1.73;
+}
+
+div.tech-knowledge > .desc {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+}
+
+div.tech-knowledge > .exp-list {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
