@@ -1,59 +1,52 @@
+/* Highest div */
 .about-me {
-    overflow: hidden;
+    /* overflow: auto; */
     display: flex;
     flex-wrap: wrap;
     row-gap: 3rem;
-
 }
 
-.cool-picture {
-    position: relative;
-    flex: 1 1 auto;
+/* Container for the matrix rain and the photo */
+div.cool-picture {
+    flex: 0 1 auto;
     flex-direction: column;
     display: flex;
     justify-content: space-between;
     min-width: 350px;
-    box-shadow: 10px 0px 5px darkslategrey;
+    box-shadow: 10px 10px 5px darkslategrey;
+    border-radius: 15px;
+    border-style: ridge;
+    border-width: 3px;
+}
+
+/* Photo */
+div.cool-picture > img {
     border-radius: 15px;
 }
 
-.cool-picture img {
-    border-radius: 15px;
-}
-
-@media only screen and (min-width: 600px) {
-    .cool-picture {
-        height: 95vh;
-        width: 15vh;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .cool-picture {
-        height: 550px;
-    }
-}
-
-.overlay {
+/* Photo (Overlaying the matrix rain) */
+.overlay-photo {
     position: absolute;
     display: block;
     z-index: 2;
-    opacity: 0.4;
+    opacity: 0.55;
     object-fit: cover;
     min-width: 0;
     flex: none;
-    border-radius: inherit;
+    border-radius: 15px;
 }
 
-.matrix-rain {
+/* Matrix rain */
+div.cool-picture > .matrix-rain {
     flex: 1 1 auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     z-index: 1;
     min-width: 0;
-    border-radius: inherit;
+    border-radius: 15px;
 }
 
+/* Intro div contains name, jobs and social */
 div.intro {
     position: absolute;
     bottom: 0;
@@ -68,11 +61,13 @@ div.intro {
 div.intro > .name {
     font-weight: 900;
     line-height: 1.37;
+    letter-spacing: 2px;
 }
 
 div.intro > .jobs {
     font-weight: 400;
-    line-height: 1.0;
+    line-height: 1;
+    letter-spacing: 2px;
 }
 
 div.intro > .social > .social-list {
@@ -95,14 +90,105 @@ div.intro > .social > .social-list > li:not(:last-child) {
     margin-right: 10px;
 }
 
+/* Resume is the div next to the cool picture */
 div.resume {
     display: flex;
     flex-direction: column;
     margin-left: 3rem;
-    width: 57vw;
+
     color: var(--text-primary);
 }
 
+@media only screen and (min-width: 1400px) {
+    div.cool-picture {
+        position: sticky;
+        top: 1rem;
+        align-self: flex-start;
+        height: 95vh;
+        width: 28vw;
+    }
+
+    div.resume {
+        width: 60vw;
+    }
+
+    .exp-card {
+        max-width: 27vw;
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1400px) {
+    div.cool-picture {
+        position: sticky;
+        top: 1rem;
+        align-self: flex-start;
+        height: 95vh;
+        width: 28vw;
+    }
+
+    div.resume {
+        width: 57vw;
+    }
+
+    .exp-card {
+        max-width: 24vw;
+    }
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1200px) {
+    div.cool-picture {
+        position: sticky;
+        top: 1rem;
+        align-self: flex-start;
+        height: 95vh;
+        width: 28vw;
+    }
+
+    div.resume {
+        width: 48vw;
+    }
+
+    .exp-card {
+        max-width: 20vw;
+    }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1000px) {
+    div.cool-picture {
+        position: sticky;
+        top: 1rem;
+        align-self: flex-start;
+        height: 95vh;
+        width: 28vw;
+    }
+
+    div.resume {
+        width: 38vw;
+    }
+
+    .exp-card {
+        max-width: 35vw;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    div.cool-picture {
+        height: 80vh;
+        width: 90vw;
+        position: relative;
+    }
+
+    div.resume {
+        width: 80vw;
+        margin-left: 1rem;
+    }
+
+    .exp-card {
+        max-width: 80vw-2rem;
+    }
+}
+
+/* Short description about me */
 div.short-desc {
     flex: 0 1 auto;
 }
@@ -131,7 +217,7 @@ div.short-desc > .desc-list > .desc-item:not(:last-child) {
 }
 
 div.short-desc > .desc-list > .desc-item:not(:last-child)::after {
-    content: '/';
+    content: "/";
     font-size: 18px;
     font-weight: bold;
     font-style: italic;
@@ -144,6 +230,7 @@ div.short-desc > .desc-para {
     line-height: 1.73;
 }
 
+/* My technical experiences */
 div.tech-knowledge > .desc {
     font-size: 2.8rem;
     margin-bottom: 2rem;
@@ -153,4 +240,118 @@ div.tech-knowledge > .exp-list {
     padding: 10px;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+.exp-card {
+    flex: 0 1 auto;
+    margin: 7px;
+    background-color: var(--bg-secondary);
+}
+
+.exp-card:hover {
+    /* background-color: yellow; */
+    /* box-shadow: 0 0 0 1px var(--text-secondary), 0 0 0 var(--text-secondary), 0 1px 1px var(--text-secondary) */
+    box-shadow: 0px 0px 15px 0px rgb(172, 117, 15);
+    transition: 0.4s ease;
+    cursor: pointer;
+}
+
+.exp-card > #exp-role {
+    font-size: 1.75rem;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    color: var(--text-primary);
+}
+
+.exp-card > #exp-where {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+}
+.exp-card > #exp-tech {
+    font-size: 0.9rem;
+    font-weight: 400;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin-top: 8px;
+    color: coral;
+    letter-spacing: 1.5px;
+}
+
+.exp-card > #exp-tech > li {
+    font-style: italic;
+}
+
+.exp-card > #exp-tech > li:not(:last-child) {
+    margin-right: 6px;
+}
+
+.exp-card > #exp-tech > li:not(:last-child)::after {
+    content: "/";
+    font-weight: bold;
+    font-style: italic;
+    opacity: 0.35;
+    margin-left: 6px;
+}
+
+.exp-card > #exp-desc {
+    font-size: 0.8rem;
+    font-weight: 300;
+    text-align: justify;
+    text-justify: inter-word;
+    max-width: 100ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 1px;
+}
+
+.exp-overlay {
+    z-index: 9999;
+}
+
+.exp-overlay-card {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: white;
+    max-width: 60vw;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.exp-overlay-card > #exp-desc {
+    white-space: unset;
+    max-width: 100%;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.exp-overlay-card > .overlay-close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+@media only screen and (max-height: 750px) {
+    .exp-overlay-card {
+        max-height: 90vh;
+    }
+}
+
+@media only screen and (min-height: 750px) {
+    .exp-overlay-card {
+        max-height: 45vh;
+    }
 }

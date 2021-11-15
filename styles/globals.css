@@ -102,10 +102,10 @@ a {
 }
 
 .dark {
-    --text-primary: #b6b6b6;
-    --text-secondary: #ececec;
+    --text-primary: #dad8d8;
+    --text-secondary: #c2bfbf;
     --bg-primary: #23232e;
-    --bg-secondary: #141418;
+    --bg-secondary: #3d3d42;
 }
 
 .light {

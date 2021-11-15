@@ -1,60 +1,51 @@
-import { FC, useContext } from "react";
+import React, { FC, useContext, useState } from "react";
 import cx from "classnames";
 import Image from "next/image";
 import MatrixRain from "./MatrixRain";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faLinkedin, faGithub, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import style from "../styles/AboutMe.module.css";
+import styles from "../styles/AboutMe.module.css";
 import { ThemeCtx } from "../pages/_app";
-import { Button, Card, Elevation } from "@blueprintjs/core";
+import { Button, Overlay, Card, Elevation, Classes, Intent } from "@blueprintjs/core";
+import { expList, descriptionList, shortPara, social } from "../lib/aboutme";
+import myface from "../public/myface.png";
 
-
-const social = {
-    facebook: {
-        href: "https://facebook.com/ductai199x",
-        icon: faFacebook,
-    },
-    linkedin: {
-        href: "https://linkedin.com/in/tai-duc-nguyen",
-        icon: faLinkedin,
-    },
-    github: {
-        href: "https://github.com/ductai199x",
-        icon: faGithub,
-    },
-    gmail: {
-        href: "mailto:taiducnguyen.drexel@gmail.com",
-        icon: faGoogle,
-    },
-};
-
-const descriptionList = ["24 years old", "PhD student", "Drexel University"];
-
-const shortPara =
-    "Prolific, full stack web developer with a passion for metrics and beating former 'best-yets.' \
-    Prototyped 25 new product features per year for Flexor, Inc. Decreased rework by 22% and costs by 15%. \
-    Consistently receive high user experience scores for all web development projects, \
-    including a 55% increase for Flexor, Inc. Passionate about building world class web applications. \
-    One of my sites received a 2015 Webby for Best Navigation and Structure.";
+interface ExpType {
+    role: string;
+    where: string;
+    date: string;
+    tech: string[];
+    desc: string;
+}
 
 // https://colorlib.com/wp/resume-website-templates/
 export const AboutMe: FC = () => {
     const { theme } = useContext(ThemeCtx);
+    const [openOverlay, setOpenOverlay] = useState<boolean>(false);
+    const [overlayContent, setOverlayContent] = useState<ExpType | null>(null);
+    const toggleOverlay = () => {
+        setOpenOverlay(!openOverlay);
+    };
+
+    const handleCardClick = (k: ExpType): void => {
+        console.log(k);
+        toggleOverlay();
+        setOverlayContent(k);
+    };
 
     return (
-        <div className={cx(style["about-me"], theme)}>
-            <div className={style["cool-picture"]}>
-                <MatrixRain className={style["matrix-rain"]} />
-                <Image className={style["overlay"]} src="/myface.png" layout="fill" />
-                <div className={style["intro"]}>
-                    <div className={style["name"]}>
+        <div className={cx(styles["about-me"], theme)}>
+            <div className={styles["cool-picture"]}>
+                <MatrixRain className={styles["matrix-rain"]} />
+                <Image className={styles["overlay-photo"]} src={myface} layout="fill" placeholder="blur" />
+                <div className={styles["intro"]}>
+                    <div className={styles["name"]}>
                         <h1>
                             <b>Tai Nguyen</b>
                         </h1>
                     </div>
-                    <div className={style["jobs"]}>Developer, ML Researcher</div>
-                    <div className={style["social"]}>
-                        <ul className={style["social-list"]}>
+                    <div className={styles["jobs"]}>Developer, ML Researcher</div>
+                    <div className={styles["social"]}>
+                        <ul className={styles["social-list"]}>
                             {Object.keys(social).map((key, idx) => {
                                 return (
                                     <li id={key} key={key}>
@@ -69,31 +60,80 @@ export const AboutMe: FC = () => {
                 </div>
             </div>
 
-            <div className={cx(style["resume"], theme)}>
-                <div className={style["short-desc"]}>
-                    <div className={style["desc"]}>
+            <div className={cx(styles["resume"], theme)}>
+                <div className={styles["short-desc"]}>
+                    <div className={styles["desc"]}>
                         <b>about me</b>
                     </div>
-                    <div className={style["desc-list"]}>
+                    <div className={styles["desc-list"]}>
                         {descriptionList.map((k, i) => {
-                            return <div className={style["desc-item"]}>{k}</div>;
+                            return (
+                                <div className={styles["desc-item"]} key={k}>
+                                    {k}
+                                </div>
+                            );
                         })}
                     </div>
-                    <div className={style["desc-para"]}>{shortPara}</div>
+                    <div className={styles["desc-para"]}>{shortPara}</div>
 
                     <hr className="hr1" />
                 </div>
 
-                <div className={style["tech-knowledge"]}>
-                    <div className={style["desc"]}>
+                <div className={styles["tech-knowledge"]}>
+                    <div className={styles["desc"]}>
                         <b>my experience</b>
                     </div>
-                    <div className={style["exp-list"]}>
-                        <Card interactive={true} elevation={Elevation.TWO}>
-                            <h5><a href="#">Card heading</a></h5>
-                            <p>Card content</p>
-                            <Button>Submit</Button>
-                        </Card>
+                    <div className={styles["exp-list"]}>
+                        <Overlay
+                            isOpen={openOverlay}
+                            onClose={toggleOverlay}
+                            transitionDuration={100}
+                            className={cx(Classes.OVERLAY_SCROLL_CONTAINER, styles["exp-overlay"])}
+                        >
+                            {overlayContent != null ? (
+                                <Card
+                                    className={cx(styles["exp-card"], styles["exp-overlay-card"])}
+                                    interactive={false}
+                                    elevation={Elevation.TWO}
+                                >
+                                    <Button
+                                        className={styles["overlay-close-btn"]}
+                                        onClick={toggleOverlay}
+                                        intent={Intent.WARNING}
+                                        text="X"
+                                    />
+                                    <div id={styles["exp-role"]}>{overlayContent.role}</div>
+                                    <div id={styles["exp-where"]}>{overlayContent.where}</div>
+                                    <ul id={styles["exp-tech"]}>
+                                        {overlayContent.tech.map((k, i) => {
+                                            return <li key={"overlay_" + i}>{k}</li>;
+                                        })}
+                                    </ul>
+                                    <p id={styles["exp-desc"]}>{overlayContent.desc}</p>
+                                </Card>
+                            ) : (
+                                <div></div>
+                            )}
+                        </Overlay>
+                        {expList.map((k, i) => {
+                            return (
+                                <Card
+                                    className={cx(styles["exp-card"], styles["exp-card-elevation"])}
+                                    interactive={false}
+                                    key={i}
+                                    onClick={(e) => handleCardClick(k)}
+                                >
+                                    <div id={styles["exp-role"]}>{k.role}</div>
+                                    <div id={styles["exp-where"]}>{k.where}</div>
+                                    <ul id={styles["exp-tech"]}>
+                                        {k.tech.map((k2, i2) => {
+                                            return <li key={i + "_" + i2}>{k2}</li>;
+                                        })}
+                                    </ul>
+                                    <p id={styles["exp-desc"]}>{k.desc}</p>
+                                </Card>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
